@@ -1,6 +1,7 @@
 package it.polito.tdp.dizionariograph;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.dizionariograph.model.Model;
@@ -48,17 +49,18 @@ public class DizionarioGraphController {
 
     @FXML
     void doGraph(ActionEvent event) {
+    	System.out.println(txtNumber.getText());
     	model.createGraph(Integer.parseInt(txtNumber.getText()));
     }
 
     @FXML
     void doReset(ActionEvent event) {
-
     }
 
     @FXML
     void searchVicini(ActionEvent event) {
-
+    	List<String> vicini = model.displayNeighbours(txtWord.getText());
+    	txtResult.appendText("Vicini di " + txtWord.getText()+": " + vicini.toString());
     }
 
     @FXML
@@ -70,6 +72,10 @@ public class DizionarioGraphController {
         assert btnGrado != null : "fx:id=\"btnGrado\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
+    }
+    
+    public void setModel(Model model) {
+    	this.model = model;
     }
     
 }

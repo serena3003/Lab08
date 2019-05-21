@@ -13,8 +13,6 @@ public class WordDAO {
 	 * Ritorna tutte le parole di una data lunghezza
 	 */
 	public List<String> getAllWordsFixedLength(int length) {
-		
-		System.out.println("QUERY!");
 
 		String sql = "SELECT nome FROM parola WHERE LENGTH(nome) = ? ";
 		List<String> parole = new ArrayList<String>();

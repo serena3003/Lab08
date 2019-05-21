@@ -3,6 +3,7 @@ package it.polito.tdp.dizionariograph.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
@@ -41,14 +42,24 @@ public class Model {
 				}
 			}
 		}
-		// System.out.println("Vertici: "+ graph.vertexSet().size() +" Archi: " +
-		// graph.edgeSet().size());
+		System.out.println("Vertici: "+ graph.vertexSet().size() +" Archi: " + graph.edgeSet().size());
 	}
 
 	public List<String> displayNeighbours(String parolaInserita) {
-
-		System.err.println("displayNeighbours -- TODO");
-		return new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
+		
+		if(!graph.containsVertex(parolaInserita)) {
+			return null;
+		} else {
+			Set<DefaultEdge> edge = graph.edgesOf(parolaInserita);
+			for(DefaultEdge e : edge) {
+				String r = graph.getEdgeSource(e);
+				if(!result.contains(r) && !r.equals(parolaInserita))
+					result.add(r);
+			}
+			//System.out.println(result);
+		}
+		return result ;
 	}
 
 	public int findMaxDegree() {
