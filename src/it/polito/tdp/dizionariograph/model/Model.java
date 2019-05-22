@@ -51,20 +51,26 @@ public class Model {
 		if(!graph.containsVertex(parolaInserita)) {
 			return null;
 		} else {
-			Set<DefaultEdge> edge = graph.edgesOf(parolaInserita);
-			for(DefaultEdge e : edge) {
-				String r = graph.getEdgeSource(e);
-				if(!result.contains(r) && !r.equals(parolaInserita))
-					result.add(r);
-			}
-			//System.out.println(result);
+			for(DefaultEdge e : graph.edgesOf(parolaInserita)) {
+				String s =  graph.getEdgeSource(e);
+				  if(s.equals(parolaInserita)){
+			            s = graph.getEdgeTarget(e);
+			        }
+				result.add(s);
+				}
 		}
 		return result ;
 	}
 
 	public int findMaxDegree() {
-		System.err.println("findMaxDegree -- TODO");
-		return -1;
+		int grado = 0;
+		for(String vert : graph.vertexSet()) {
+			List<String> vicini = displayNeighbours(vert);
+			if(vicini.size()>= grado) {
+				grado = vicini.size();
+			}
+		}
+		return grado;
 	}
 
 	public int confrontaParole(String w1, String w2) {
@@ -75,5 +81,22 @@ public class Model {
 			}
 		}
 		return count;
+	}
+	
+	public String findMaxVertex() {
+		String res = null;
+		int grado = 0;
+		for(String vert : graph.vertexSet()) {
+			List<String> vicini = displayNeighbours(vert);
+			if(vicini.size()>= grado) {
+				grado = vicini.size();
+				res = vert;
+			}
+		}
+		return res;
+	}
+
+	public void reset() {
+		graph = new SimpleGraph<>(DefaultEdge.class);
 	}
 }

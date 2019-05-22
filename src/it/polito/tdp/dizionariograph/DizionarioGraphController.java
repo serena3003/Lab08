@@ -44,17 +44,23 @@ public class DizionarioGraphController {
 
     @FXML
     void doGradoMax(ActionEvent event) {
-
+    	txtResult.appendText("Grado massimo del grafo: " + model.findMaxDegree() + "\n");
+    	String ver = model.findMaxVertex();
+    	txtResult.appendText("Vertice del grado massimo del grafo: " + ver + "\n");
+    	txtResult.appendText("Vicini del vertice di grado massimo: " + model.displayNeighbours(ver));
     }
 
     @FXML
     void doGraph(ActionEvent event) {
-    	System.out.println(txtNumber.getText());
     	model.createGraph(Integer.parseInt(txtNumber.getText()));
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	txtResult.clear();
+    	txtWord.clear();
+    	txtNumber.clear();
+    	model.reset();
     }
 
     @FXML
